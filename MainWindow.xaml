@@ -53,8 +53,5 @@
                 Click="SearchAddressButton_Click" />
             </Grid>
         </Border>
-
-
     </Grid>
-
 </Window>  
