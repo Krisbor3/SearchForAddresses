@@ -51,6 +51,9 @@
                 Margin="5"
                 Content="Search"
                 Click="SearchAddressButton_Click" />
+                <Image Source="https://i.postimg.cc/sxXSrDf6/icons8-order-history-plumpy-32.png" Grid.ColumnSpan="2" Margin="150,2,-75,28" Grid.RowSpan="2"
+                       MouseLeftButtonUp="Image_MouseLeftButtonUp">
+                </Image>
             </Grid>
         </Border>
     </Grid>
