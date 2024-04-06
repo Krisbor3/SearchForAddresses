@@ -1,5 +1,4 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
 using System.Windows;
@@ -7,9 +6,6 @@ using System.Windows.Controls;
 
 namespace SearchForAddresses
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
 
