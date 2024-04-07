@@ -13,7 +13,9 @@ namespace SearchForAddresses
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ConfigurationManager.AppSettings.Get("Api_Key");
+            // Note: it is not best practice to store API keys in source code.
+            // The API key is referenced here for the convenience of this tutorial.
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = "AAPK5177dbae692f4da6b57951522b63710afAVso_ojlGfIMYaFsKn89oKKlmZlfTfLbSDZWaIwkS7r2-lLqB5BUz9W6SG07noM";
         }
 
     }
