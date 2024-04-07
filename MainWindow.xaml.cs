@@ -76,6 +76,11 @@ namespace SearchForAddresses
         private void Image_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             //show history
+            if (SuggestionsListView.Visibility==Visibility.Visible)
+            {
+                HideSuggestions();
+                return;
+            }
             if (!HistoryService.SearchedAddresses.Any())
             {
                 MessageBox.Show("No history found");
