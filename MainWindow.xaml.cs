@@ -1,5 +1,5 @@
 ﻿using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
+using SearchForAddresses.Services;
 using System;
 using System.Linq;
 using System.Windows;
@@ -7,9 +7,6 @@ using System.Windows.Controls;
 
 namespace SearchForAddresses
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
 
@@ -17,8 +14,8 @@ namespace SearchForAddresses
         {
             InitializeComponent();
 
-            MapPoint mapCenterPoint = new MapPoint(-118.805, 34.027, SpatialReferences.Wgs84);
-            MainMapView.SetViewpoint(new Viewpoint(mapCenterPoint, 100000));
+            MainMapView.LocationDisplay.IsEnabled = true;
+            MainMapView.LocationDisplay.AutoPanMode = Esri.ArcGISRuntime.UI.LocationDisplayAutoPanMode.Recenter;
 
         }
 
@@ -35,6 +32,8 @@ namespace SearchForAddresses
             if (spatialReference == null) { return; }
             MapPoint? addressPoint = await viewModel.SearchAddress(AddressTextBox.Text, spatialReference);
 
+            //Add to history
+            HistoryService.SearchedAddresses.Push(AddressTextBox.Text);
             // If a result was found, center the display on it.
             if (addressPoint != null)
             {
@@ -46,7 +45,6 @@ namespace SearchForAddresses
         {
             // Get the MapViewModel from the page (defined as a static resource).
             var viewModel = (MapViewModel)FindResource("MapViewModel");
-            if (viewModel == null) { return; }
             ShowSuggestions();
             var sugs = await viewModel.SuggestAddress(AddressTextBox.Text);
             if (!sugs.Any())
@@ -75,5 +73,25 @@ namespace SearchForAddresses
         private void ShowSuggestions() => SuggestionsListView.Visibility = Visibility.Visible;
         private void HideSuggestions() => SuggestionsListView.Visibility = Visibility.Hidden;
 
+        private void Image_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            //show history
+            if (SuggestionsListView.Visibility==Visibility.Visible)
+            {
+                HideSuggestions();
+                return;
+            }
+            if (!HistoryService.SearchedAddresses.Any())
+            {
+                MessageBox.Show("No history found");
+                return;
+            }
+            SuggestionsListView.Items.Clear();
+            foreach (var sa in HistoryService.SearchedAddresses)
+            {
+                SuggestionsListView.Items.Add(sa);
+            }
+            ShowSuggestions();
+        }
     }
 }
