@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
   </ItemGroup>
 
 </Project>
